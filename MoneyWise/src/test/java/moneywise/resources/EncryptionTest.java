@@ -19,11 +19,4 @@ public class EncryptionTest {
         assertEquals(result, Encryption.encrypt(senha));
     }
     
-    @Test
-    public void testCheckPassword() {
-        String senha = "SenhaABC123";
-        String senha_hash = Encryption.encrypt(senha);
-        assertTrue(Encryption.checkPassword(senha, senha_hash));
-    }
-    
 }

@@ -1,11 +1,8 @@
 package moneywise.dao;
 
 import java.sql.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.SQLException;
 import moneywise.modelo.Usuario;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
@@ -16,13 +13,8 @@ public class UsuarioDaoTest {
     
     UsuarioDao dao;
     
-    @Before
-    public void setUp() {
-        try {
-            dao = new UsuarioDao();
-        } catch (Exception ex) {
-            Logger.getLogger(UsuarioDaoTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public UsuarioDaoTest() throws SQLException, ClassNotFoundException {
+        this.dao = new UsuarioDao();
     }
     
     @Test
@@ -95,6 +87,12 @@ public class UsuarioDaoTest {
         dao.salvar(usuario);
         Usuario result = dao.loginUsuario(usuario.getEmail(), usuario.getSenha());
         assertEquals(usuario, result);
+    }
+    
+    @Test
+    public void test09Close_CT01() throws SQLException{
+        System.out.println("close - CT01");
+        dao.close();
     }
    
 }

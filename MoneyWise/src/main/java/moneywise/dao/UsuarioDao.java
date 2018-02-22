@@ -34,7 +34,6 @@ public class UsuarioDao {
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -58,7 +57,7 @@ public class UsuarioDao {
             while(rs.next())
                 usuario = new Usuario(
                         rs.getString("email"),
-                        rs.getString("senha"),
+                        Encryption.decrypt(rs.getString("senha")),
                         rs.getString("nome"),
                         rs.getString("sexo"),
                         rs.getDate("nascimento")
@@ -66,7 +65,6 @@ public class UsuarioDao {
 
             rs.close();
             stmt.close();
-            conn.close();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }
@@ -92,7 +90,6 @@ public class UsuarioDao {
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
@@ -115,7 +112,6 @@ public class UsuarioDao {
             stmt.executeUpdate();
 
             stmt.close();
-            conn.close();
         } catch (SQLException ex) {
 
             ex.printStackTrace();
@@ -127,24 +123,15 @@ public class UsuarioDao {
 
     public Usuario loginUsuario(String email, String senha) throws SQLException {
 
-        Usuario usuario = null;
-
-        String sql = "SELECT senha FROM Usuario WHERE email ILIKE ?";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-
-        stmt.setString(1, senha);
-
-        ResultSet rs = stmt.executeQuery();
-
-        if(Encryption.checkPassword(senha, rs.getString("Senha"))){
-           usuario = buscar(email); 
+        Usuario usuario = buscar(email);
+        if(usuario.getSenha().equals(senha)){
+            return usuario;
         }
-
-        rs.close();
-        stmt.close();
+        return null;
+    }
+    
+    public void close() throws SQLException{
         conn.close();
-
-        return usuario;
     }
     
 }

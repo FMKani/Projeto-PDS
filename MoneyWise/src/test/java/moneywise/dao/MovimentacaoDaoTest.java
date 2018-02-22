@@ -41,10 +41,10 @@ public class MovimentacaoDaoTest {
     }
 
     @Test
-    public void test01GetLastID_CT01() {
+    public void test01GetLastID_CT01() throws SQLException {
         System.out.println("getLastID() - CT01");
         Movimentacao mov = new Movimentacao(1, "test@mov.com", "descricao...", 250.75f, Date.valueOf("1990-02-01"), "Tipo1", "Categoria1");
-        int result = dao.getLastID();
+        int result = dao.getLastCod();
         dao.salvar(mov);
         assertEquals(mov.getCod(), result);
     }
@@ -66,9 +66,9 @@ public class MovimentacaoDaoTest {
     }
 
     @Test
-    public void test04Buscar_CT01() {
+    public void test04Buscar_CT01() throws SQLException {
         System.out.println("buscar - CT01");
-        int cod = dao.getLastID();
+        int cod = dao.getLastCod();
         Movimentacao mov = new Movimentacao(cod, "test@mov.com", "descricao...", 250.75f, Date.valueOf("1990-02-01"), "Tipo1", "Categoria1");
         dao.salvar(mov);
         Movimentacao result = dao.buscar(cod);
@@ -84,9 +84,9 @@ public class MovimentacaoDaoTest {
     }
 
     @Test
-    public void test06Atualizar_CT01() {
+    public void test06Atualizar_CT01() throws SQLException {
         System.out.println("atualizar - CT01");
-        int cod = dao.getLastID();
+        int cod = dao.getLastCod();
         Movimentacao mov = new Movimentacao(cod, "test@mov.com", "descricao...", 250.75f, Date.valueOf("1990-02-01"), "Tipo1", "Categoria1");
         dao.salvar(mov);
 
@@ -96,10 +96,10 @@ public class MovimentacaoDaoTest {
     }
 
     @Test
-    public void test07Atualizar_CT02() {
+    public void test07Atualizar_CT02() throws SQLException {
         System.out.println("atualizar - CT02");
 
-        int cod = dao.getLastID();
+        int cod = dao.getLastCod();
         Movimentacao mov = new Movimentacao(cod, "test@mov.com", "descricao...", 250.75f, Date.valueOf("1990-02-01"), "Tipo1", "Categoria1");
         dao.salvar(mov);
 
@@ -110,10 +110,10 @@ public class MovimentacaoDaoTest {
     }
 
     @Test
-    public void test08Remover_CT01() {
+    public void test08Remover_CT01() throws SQLException {
         System.out.println("remover - CT01");
 
-        int cod = dao.getLastID();
+        int cod = dao.getLastCod();
         Movimentacao mov = new Movimentacao(cod, "test@mov.com", "descricao...", 250.75f, Date.valueOf("1990-02-01"), "Tipo1", "Categoria1");
         dao.salvar(mov);
 
@@ -130,6 +130,7 @@ public class MovimentacaoDaoTest {
             if(uDao.buscar("test@mov.com")!=null){
                 uDao.remover("test@mov.com");
             }
+            uDao.close();
         } catch (Exception ex) {
             Logger.getLogger(MovimentacaoDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
