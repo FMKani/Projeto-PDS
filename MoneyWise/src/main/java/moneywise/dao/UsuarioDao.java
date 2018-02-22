@@ -100,8 +100,7 @@ public class UsuarioDao {
 
     public boolean remover(String email) {
 
-        String sql = "DELETE FROM Movimentacao WHERE Usuario ILIKE ?;"
-                   + "DELETE FROM Usuario WHERE Email ILIKE ?";
+        String sql = "DELETE FROM Usuario WHERE Email ILIKE ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
