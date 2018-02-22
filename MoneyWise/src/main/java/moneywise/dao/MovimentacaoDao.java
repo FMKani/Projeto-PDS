@@ -1,0 +1,158 @@
+package moneywise.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import moneywise.factory.Conexao;
+import moneywise.modelo.Movimentacao;
+
+public class MovimentacaoDao {
+    
+    private Connection conn;
+
+    public MovimentacaoDao() throws SQLException, ClassNotFoundException{
+        conn = Conexao.getConnection();
+    }
+    
+    public int getLastID(){
+        try{
+            Statement stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery("select MAX(id) from Movimentacao");
+            
+            if(!rs.next()){
+                return 1;                
+            }            
+            int id = rs.getInt("MAX")+1;
+            
+            stat.close();            
+            return id;
+        } catch (SQLException ex) {
+            return -1;
+        }
+    }
+    
+    public boolean salvar(Movimentacao mov) {
+        String sql = "INSERT INTO Movimentacao(cod, usuario, descricao, valor, data, tipo, categoria)"
+                   + "VALUES (?,?,?,?,?,?,?);";
+
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement(sql);
+            
+            //Caso cod == -1, set cod com o ultimo cod disponivel
+            if(mov.getCod()==-1){
+                mov.setCod(getLastID());
+            }
+
+            stmt.setInt   (1, mov.getCod());            
+            stmt.setString(2, mov.getEmailUsuario());
+            stmt.setString(3, mov.getDescricao());
+            stmt.setFloat (4, mov.getValor());
+            stmt.setDate  (5, mov.getData());
+            stmt.setString(6, mov.getTipo());
+            stmt.setString(7, mov.getCategoria());
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    
+    public Movimentacao buscar(int cod) {
+
+        Movimentacao mov = null;
+
+        String sql = "SELECT * FROM Movimentacao WHERE cod = ?";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, cod);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next())
+                mov = new Movimentacao(
+                        rs.getInt("cod"),
+                        rs.getString("usuario"),
+                        rs.getString("descricao"),
+                        rs.getFloat("valor"),
+                        rs.getDate("data"),
+                        rs.getString("tipo"),
+                        rs.getString("categoria")                        
+                );
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+
+        return mov;
+    }
+
+    public boolean atualizar(int cod, Movimentacao mov) {
+
+        String sql = "UPDATE Movimentacao SET cod = ?, usuario = ?, descricao = ?, "
+                   + "valor = ?, data = ?, tipo = ?, categoria = ? WHERE cod = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            //Caso cod == -1, set cod com o ultimo cod disponivel
+            if(mov.getCod()==-1){
+                mov.setCod(getLastID());
+            }
+            
+            stmt.setInt   (1, mov.getCod());
+            stmt.setString(2, mov.getEmailUsuario());
+            stmt.setString(3, mov.getDescricao());
+            stmt.setFloat (4, mov.getValor());
+            stmt.setDate  (5, mov.getData());
+            stmt.setString(6, mov.getTipo());
+            stmt.setString(7, mov.getCategoria());
+            stmt.setInt   (8, cod);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean remover(int cod) {
+
+        String sql = "DELETE FROM Movimentacao WHERE cod = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, cod);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+    
+}
