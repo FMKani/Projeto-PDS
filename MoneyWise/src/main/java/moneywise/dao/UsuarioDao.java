@@ -123,7 +123,7 @@ public class UsuarioDao {
     public Usuario loginUsuario(String email, String senha) throws SQLException {
 
         Usuario usuario = buscar(email);
-        if(usuario.getSenha().equals(senha)){
+        if(usuario!= null && usuario.getSenha().equals(senha)){
             return usuario;
         }
         return null;
