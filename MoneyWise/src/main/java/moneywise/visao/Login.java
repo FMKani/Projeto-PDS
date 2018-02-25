@@ -111,6 +111,7 @@ public class Login extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Logado como sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }
+            userDao.close();
         } catch (SQLException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Erro na conexão com o Banco.", "Erro", JOptionPane.ERROR_MESSAGE);
         }

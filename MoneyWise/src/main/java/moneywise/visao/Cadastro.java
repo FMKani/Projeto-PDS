@@ -254,6 +254,9 @@ public class Cadastro extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Cadastro concluido.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
             }
+            
+            userDao.close();
+            
         } catch (SQLException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Erro na conexao com o banco.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
