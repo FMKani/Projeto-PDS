@@ -45,12 +45,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txtSenha" max="32767" attributes="0"/>
                   <Component id="txtNome" max="32767" attributes="0"/>
                   <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtSenha" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtConfSenha" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtNascimento" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">

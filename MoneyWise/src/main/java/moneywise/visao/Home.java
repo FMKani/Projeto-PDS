@@ -31,6 +31,11 @@ public class Home extends javax.swing.JFrame {
         btnGerenciarPerfil.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnGerenciarPerfil.setIconTextGap(2);
         btnGerenciarPerfil.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGerenciarPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerenciarPerfilActionPerformed(evt);
+            }
+        });
 
         btnCadastrarMovimentacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon1.png"))); // NOI18N
         btnCadastrarMovimentacao.setText("<html><center>Cadastrar<br/>Movimentação</center></html>");
@@ -103,6 +108,12 @@ public class Home extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnGerenciarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarPerfilActionPerformed
+        GerenciarPerfil gerenciarPerfil = new GerenciarPerfil(usuario);
+        gerenciarPerfil.setLocation(this.getX(), this.getY());
+        this.dispose();
+    }//GEN-LAST:event_btnGerenciarPerfilActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarMovimentacao;

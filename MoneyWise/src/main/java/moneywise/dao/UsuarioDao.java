@@ -106,7 +106,6 @@ public class UsuarioDao {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, email);
-            stmt.setString(2, email);
 
             stmt.executeUpdate();
 
