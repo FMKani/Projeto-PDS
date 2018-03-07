@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import moneywise.dao.UsuarioDao;
+import moneywise.modelo.Usuario;
 
 public class Login extends javax.swing.JFrame {
 
@@ -106,15 +107,21 @@ public class Login extends javax.swing.JFrame {
         
         try {
             UsuarioDao userDao = new UsuarioDao();
-            if(userDao.loginUsuario(email, senha)==null){
+            Usuario usuario = userDao.loginUsuario(email, senha);
+            if(usuario == null){
                 JOptionPane.showMessageDialog(null, "Email ou senha inválidos.", "Erro", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Logado como sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                Home home = new Home(usuario);
+                home.setLocation(this.getX(), this.getY());
+                this.dispose();
             }
             userDao.close();
         } catch (SQLException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Erro na conexão com o Banco.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+        
+        
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     public static void main(String args[]) {
