@@ -42,6 +42,11 @@ public class Home extends javax.swing.JFrame {
         btnCadastrarMovimentacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCadastrarMovimentacao.setIconTextGap(2);
         btnCadastrarMovimentacao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCadastrarMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarMovimentacaoActionPerformed(evt);
+            }
+        });
 
         btnGerenciarFinancas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon2.png"))); // NOI18N
         btnGerenciarFinancas.setText("<html><center>Gerenciar<br/>Finanças</center></html>");
@@ -114,6 +119,12 @@ public class Home extends javax.swing.JFrame {
         gerenciarPerfil.setLocation(this.getX(), this.getY());
         this.dispose();
     }//GEN-LAST:event_btnGerenciarPerfilActionPerformed
+
+    private void btnCadastrarMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMovimentacaoActionPerformed
+        CadastrarMovimentacao cadastrarMovimentacao = new CadastrarMovimentacao(usuario);
+        cadastrarMovimentacao.setLocation(this.getX(), this.getY());
+        this.dispose();
+    }//GEN-LAST:event_btnCadastrarMovimentacaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarMovimentacao;

@@ -121,11 +121,6 @@ public class GerenciarPerfil extends javax.swing.JFrame {
         });
 
         btnExcluirConta.setText("Excluir Conta");
-        btnExcluirConta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirContaActionPerformed(evt);
-            }
-        });
 
         lblExcluirConta.setForeground(new java.awt.Color(255, 0, 0));
         lblExcluirConta.setText("Excluir Conta");
@@ -320,45 +315,6 @@ public class GerenciarPerfil extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnAlterarSenhaActionPerformed
-
-    private void btnExcluirContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirContaActionPerformed
-        String senhaExcluir = Arrays.toString(txtSenhaExcluir.getPassword());
-
-        if (!usuario.getSenha().equals(senhaExcluir)) {
-            JOptionPane.showMessageDialog(null, "Senha errada.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir sua conta?",
-                "Aviso.", JOptionPane.YES_NO_OPTION);
-
-        if (dialogResult == JOptionPane.YES_OPTION) {
-
-            try {
-                UsuarioDao userDao = new UsuarioDao();
-
-                userDao.remover(usuario.getEmail());
-                if (userDao.buscar(usuario.getEmail()) == null) {
-                    JOptionPane.showMessageDialog(null, "Conta excluida com sucesso.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
-                    Login login = new Login();
-                    login.setLocation(this.getX(), this.getY());
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Erro na exclusão do usuário.", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-                
-                userDao.close();
-
-            } catch (SQLException | ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, "Erro na conexao com o banco.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-
-            Login login = new Login();
-            login.setLocation(this.getX(), this.getY());
-            this.dispose();
-        }
-        
-    }//GEN-LAST:event_btnExcluirContaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarSenha;
