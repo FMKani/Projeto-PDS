@@ -121,6 +121,11 @@ public class GerenciarPerfil extends javax.swing.JFrame {
         });
 
         btnExcluirConta.setText("Excluir Conta");
+        btnExcluirConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirContaActionPerformed(evt);
+            }
+        });
 
         lblExcluirConta.setForeground(new java.awt.Color(255, 0, 0));
         lblExcluirConta.setText("Excluir Conta");
@@ -135,8 +140,7 @@ public class GerenciarPerfil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCancelar)
-                        .addGap(18, 18, 18)
+                        .addGap(133, 133, 133)
                         .addComponent(lblSalvar))
                     .addComponent(lblSexo)
                     .addGroup(layout.createSequentialGroup()
@@ -150,7 +154,8 @@ public class GerenciarPerfil extends javax.swing.JFrame {
                     .addComponent(lblAtualizarDados)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtNascimento, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
+                        .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                    .addComponent(lblCancelar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -201,10 +206,9 @@ public class GerenciarPerfil extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCancelar)
-                            .addComponent(lblSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(54, 54, 54))
+                        .addComponent(lblSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(37, 37, 37)
+                        .addComponent(lblCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblAlterarSenha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -229,7 +233,8 @@ public class GerenciarPerfil extends javax.swing.JFrame {
                         .addComponent(txtSenhaExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluirConta)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addComponent(jSeparator1)
         );
 
@@ -313,8 +318,38 @@ public class GerenciarPerfil extends javax.swing.JFrame {
         } catch (SQLException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Erro na conexao com o banco.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_btnAlterarSenhaActionPerformed
+
+    private void btnExcluirContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirContaActionPerformed
+        String senhaExcluir = Arrays.toString(txtSenhaExcluir.getPassword());
+        if (!usuario.getSenha().equals(senhaExcluir)) {
+            JOptionPane.showMessageDialog(null, "Senha errada.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir sua conta?",
+                "Aviso.", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            try {
+                UsuarioDao userDao = new UsuarioDao();
+                userDao.remover(usuario.getEmail());
+                if (userDao.buscar(usuario.getEmail()) == null) {
+                    JOptionPane.showMessageDialog(null, "Conta excluida com sucesso.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
+                    Login login = new Login();
+                    login.setLocation(this.getX(), this.getY());
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro na exclusão do usuário.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+                userDao.close();
+            } catch (SQLException | ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Erro na conexao com o banco.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+            Login login = new Login();
+            login.setLocation(this.getX(), this.getY());
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnExcluirContaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarSenha;
