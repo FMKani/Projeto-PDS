@@ -280,6 +280,14 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+        int rowIndex = tabela.getSelectedRow();
+        if (rowIndex < 0) {
+            return;
+        }
+        int idColumnIndex = 0;
+        int id = (Integer) tabela.getValueAt(rowIndex, idColumnIndex);
+
         int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir essa movimentação?",
                 "Aviso.", JOptionPane.YES_NO_OPTION);
 
@@ -287,10 +295,6 @@ public class GerenciarFinancas extends javax.swing.JFrame {
 
             try {
                 MovimentacaoDao movDao = new MovimentacaoDao();
-
-                int rowIndex = tabela.getSelectedRow();
-                int idColumnIndex = 0;
-                int id = (Integer) tabela.getValueAt(rowIndex, idColumnIndex);
 
                 movDao.remover(id);
                 movDao.close();
@@ -301,12 +305,12 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         }
         listarTudo();
         limpaCampoMovimentacao();
-        
+
         JOptionPane.showMessageDialog(null, "Movimentação excluida.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        
+
         int id = Integer.parseInt(lblID.getText());
         String descricao = txtDescricao.getText();
         Date data;
@@ -328,26 +332,26 @@ public class GerenciarFinancas extends javax.swing.JFrame {
 
         String tipo = String.valueOf(boxTipo.getSelectedItem());
         String categoria = String.valueOf(boxCategoria.getSelectedItem());
-        
-        try{
+
+        try {
             MovimentacaoDao movDao = new MovimentacaoDao();
-            
-            Movimentacao mov = new Movimentacao (id, usuario.getEmail(), descricao, valor, data, tipo, categoria);
-            
-            if(!movDao.atualizar(id, mov)){
+
+            Movimentacao mov = new Movimentacao(id, usuario.getEmail(), descricao, valor, data, tipo, categoria);
+
+            if (!movDao.atualizar(id, mov)) {
                 JOptionPane.showMessageDialog(null, "Erro na atualização.", "Erro", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Movimentação atualizada.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
             }
-            
+
             movDao.close();
-            
+
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CadastrarMovimentacao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         listarTudo();
-        
+
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -423,7 +427,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         return mov;
 
     }
-    
+
     private void limpaCampoMovimentacao() {
         lblID.setText("-");
         txtData.setText("");
@@ -446,7 +450,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         valor = valor.replace(".", ",");
         return valor;
     }
-    
+
     private Date getData() throws Exception {
         String dataOriginal = txtData.getText();
         String campoVazio = "  /  /    ";
