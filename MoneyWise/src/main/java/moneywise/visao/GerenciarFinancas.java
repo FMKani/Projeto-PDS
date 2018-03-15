@@ -128,6 +128,11 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         });
 
         btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
 
         lblCampoID.setText("ID:");
 
@@ -300,6 +305,51 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Movimentação excluida.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        
+        int id = Integer.parseInt(lblID.getText());
+        String descricao = txtDescricao.getText();
+        Date data;
+        try {
+            data = getData();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Data inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        float valor;
+
+        try {
+            valor = getValor();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Campo valor vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String tipo = String.valueOf(boxTipo.getSelectedItem());
+        String categoria = String.valueOf(boxCategoria.getSelectedItem());
+        
+        try{
+            MovimentacaoDao movDao = new MovimentacaoDao();
+            
+            Movimentacao mov = new Movimentacao (id, usuario.getEmail(), descricao, valor, data, tipo, categoria);
+            
+            if(!movDao.atualizar(id, mov)){
+                JOptionPane.showMessageDialog(null, "Erro na atualização.", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Movimentação atualizada.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            movDao.close();
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(CadastrarMovimentacao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        listarTudo();
+        
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxCategoria;
     private javax.swing.JComboBox<String> boxTipo;
@@ -373,7 +423,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         return mov;
 
     }
-
+    
     private void limpaCampoMovimentacao() {
         lblID.setText("-");
         txtData.setText("");
@@ -395,6 +445,37 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     private String formatValor(String valor) {
         valor = valor.replace(".", ",");
         return valor;
+    }
+    
+    private Date getData() throws Exception {
+        String dataOriginal = txtData.getText();
+        String campoVazio = "  /  /    ";
+        Date dataLimite = Date.valueOf("1900-01-01");
+
+        if (dataOriginal.equals(campoVazio)) {
+            return null;
+        }
+
+        DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatoNovo = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dataFormatada = formatoNovo.format(formatoOriginal.parse(dataOriginal));
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Date data = Date.valueOf(dataFormatada);
+
+        if (data.before(dataLimite)) {
+            throw new Exception();
+        }
+
+        return data;
+    }
+
+    private float getValor() throws NumberFormatException {
+        String strValor = txtValor.getText();
+        strValor = strValor.replace(".", "");
+        strValor = strValor.replace(",", ".");
+
+        float result = Float.parseFloat(strValor);
+        return result;
     }
 
     private Date dataToDate(String dataOriginal) {
