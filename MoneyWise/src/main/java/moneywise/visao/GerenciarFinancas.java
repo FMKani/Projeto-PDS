@@ -280,7 +280,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+
         int rowIndex = tabela.getSelectedRow();
         if (rowIndex < 0) {
             return;
@@ -299,14 +299,15 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                 movDao.remover(id);
                 movDao.close();
 
+                JOptionPane.showMessageDialog(null, "Movimentação excluida.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
+
+                listarTudo();
+                limpaCampoMovimentacao();
+
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(GerenciarFinancas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        listarTudo();
-        limpaCampoMovimentacao();
-
-        JOptionPane.showMessageDialog(null, "Movimentação excluida.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
