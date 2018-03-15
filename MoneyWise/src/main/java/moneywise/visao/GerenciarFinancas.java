@@ -312,6 +312,13 @@ public class GerenciarFinancas extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
 
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Salvar modificações?",
+                "Aviso.", JOptionPane.YES_NO_OPTION);
+
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return;
+        }
+        
         int id = Integer.parseInt(lblID.getText());
         String descricao = txtDescricao.getText();
         Date data;
