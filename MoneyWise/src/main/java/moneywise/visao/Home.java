@@ -53,6 +53,11 @@ public class Home extends javax.swing.JFrame {
         btnGerenciarFinancas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnGerenciarFinancas.setIconTextGap(2);
         btnGerenciarFinancas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGerenciarFinancas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerenciarFinancasActionPerformed(evt);
+            }
+        });
 
         lblNomeUser.setText(usuario.getNome());
 
@@ -125,6 +130,12 @@ public class Home extends javax.swing.JFrame {
         cadastrarMovimentacao.setLocation(this.getX(), this.getY());
         this.dispose();
     }//GEN-LAST:event_btnCadastrarMovimentacaoActionPerformed
+
+    private void btnGerenciarFinancasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarFinancasActionPerformed
+        GerenciarFinancas gerenciarFinancas = new GerenciarFinancas(usuario);
+        gerenciarFinancas.setLocation(this.getX(), this.getY());
+        this.dispose();
+    }//GEN-LAST:event_btnGerenciarFinancasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarMovimentacao;

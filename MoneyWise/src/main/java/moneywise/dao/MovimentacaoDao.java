@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import moneywise.factory.Conexao;
 import moneywise.modelo.Movimentacao;
+import moneywise.modelo.Usuario;
 
 public class MovimentacaoDao {
 
@@ -92,6 +95,42 @@ public class MovimentacaoDao {
         return mov;
     }
 
+    public List<Movimentacao> listarTudo(Usuario usuario) {
+
+        List<Movimentacao> movs = new ArrayList<>();
+
+        String sql = "SELECT * FROM Movimentacao WHERE usuario = ? ORDER BY data DESC";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, usuario.getEmail());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Movimentacao mov = new Movimentacao(
+                        rs.getInt("cod"),
+                        rs.getString("usuario"),
+                        rs.getString("descricao"),
+                        rs.getFloat("valor"),
+                        rs.getDate("data"),
+                        rs.getString("tipo"),
+                        rs.getString("categoria")
+                );
+                
+                movs.add(mov);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+
+        return movs;
+    }
+    
     public boolean atualizar(int cod, Movimentacao mov) {
 
         String sql = "UPDATE Movimentacao SET cod = ?, usuario = ?, descricao = ?, "
