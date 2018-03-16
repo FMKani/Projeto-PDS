@@ -1,5 +1,6 @@
 package moneywise.visao;
 
+import java.awt.Toolkit;
 import java.math.RoundingMode;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ public class CadastrarMovimentacao extends javax.swing.JFrame {
     public CadastrarMovimentacao(Usuario usuario) {
         this.usuario = usuario;
         initComponents();
+        setIcon();
         setVisible(true);
     }
 
@@ -289,6 +291,10 @@ public class CadastrarMovimentacao extends javax.swing.JFrame {
         txtValor.setText("0");
         boxTipo.setSelectedIndex(0);
         boxCategoria.setSelectedIndex(0);
+    }
+    
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/mw.png")));
     }
     
 }

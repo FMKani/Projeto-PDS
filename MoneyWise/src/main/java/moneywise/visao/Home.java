@@ -1,5 +1,6 @@
 package moneywise.visao;
 
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import moneywise.modelo.Usuario;
 
@@ -10,6 +11,7 @@ public class Home extends javax.swing.JFrame {
     public Home(Usuario usuario) {
         this.usuario = usuario;
         initComponents();
+        setIcon();
         setVisible(true);
     }
     
@@ -137,6 +139,10 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnGerenciarFinancasActionPerformed
 
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/mw.png")));
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarMovimentacao;
     private javax.swing.JButton btnGerenciarFinancas;

@@ -1,5 +1,6 @@
 package moneywise.visao;
 
+import java.awt.Toolkit;
 import moneywise.modelo.Usuario;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ public class GerenciarPerfil extends javax.swing.JFrame {
     public GerenciarPerfil(Usuario usuario) {
         this.usuario = usuario;
         initComponents();
+        setIcon();
         setVisible(true);
     }
 
@@ -439,6 +441,10 @@ public class GerenciarPerfil extends javax.swing.JFrame {
         Home home = new Home(usuario);
         home.setLocation(this.getX(), this.getY());
         this.dispose();
+    }
+    
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/mw.png")));
     }
 
 }

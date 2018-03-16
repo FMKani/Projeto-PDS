@@ -1,5 +1,6 @@
 package moneywise.visao;
 
+import java.awt.Toolkit;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +14,7 @@ public class Cadastro extends javax.swing.JFrame {
 
     public Cadastro() {
         initComponents();
+        setIcon();
         setVisible(true);
     }
 
@@ -382,4 +384,9 @@ public class Cadastro extends javax.swing.JFrame {
         }
         return null;
     }
+    
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/mw.png")));
+    }
+    
 }

@@ -1,5 +1,6 @@
 package moneywise.visao;
 
+import java.awt.Toolkit;
 import java.math.RoundingMode;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -32,7 +33,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         initComponents();
 
         listarTudo();
-
+        setIcon();
         setVisible(true);
 
         ListSelectionModel selectionModel = tabela.getSelectionModel();
@@ -415,7 +416,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                 mov.getDescricao(),
                 mov.getTipo(),
                 mov.getCategoria(),
-                mov.getValor()
+                String.format ("%,.2f", mov.getValor())
             });
         }
 
@@ -534,6 +535,10 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         Home home = new Home(usuario);
         home.setLocation(this.getX(), this.getY());
         this.dispose();
+    }
+    
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/mw.png")));
     }
 
 }
