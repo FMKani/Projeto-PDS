@@ -428,7 +428,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                 (Integer) tabela.getValueAt(rowIndex, 0),
                 usuario.getEmail(),
                 (String) tabela.getValueAt(rowIndex, 2),
-                (Float) tabela.getValueAt(rowIndex, 5),
+                valorToFloat((String) tabela.getValueAt(rowIndex, 5)),
                 dataToDate((String) tabela.getValueAt(rowIndex, 1)),
                 (String) tabela.getValueAt(rowIndex, 3),
                 (String) tabela.getValueAt(rowIndex, 4));
@@ -438,6 +438,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     }
 
     private void limpaCampoMovimentacao() {
+        
         lblID.setText("-");
         txtData.setText("");
         txtDescricao.setText("");
@@ -447,6 +448,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     }
 
     private void setCampoMovimentacao(Movimentacao mov) {
+      
         lblID.setText(Integer.toString(mov.getCod()));
         txtData.setText(dataToString(mov.getData()));
         txtDescricao.setText(mov.getDescricao());
