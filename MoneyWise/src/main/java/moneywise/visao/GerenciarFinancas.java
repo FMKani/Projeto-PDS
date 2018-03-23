@@ -78,6 +78,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         txtData = new javax.swing.JFormattedTextField();
         boxTipo = new javax.swing.JComboBox<>();
         boxCategoria = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -178,6 +179,13 @@ public class GerenciarFinancas extends javax.swing.JFrame {
 
         boxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alimentação", "Aluguel", "Água", "Luz", "Saúde", "Pessoal", "Outro" }));
 
+        jButton1.setText("Limpar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,7 +194,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblDescricao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,14 +219,16 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                                 .addComponent(lblCampoID)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblID)))
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
                                 .addComponent(lblData)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtData))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTipo)
@@ -243,7 +253,8 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                     .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDataFinal)
                     .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
@@ -381,6 +392,78 @@ public class GerenciarFinancas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscarEListar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        txtDataInicial.setText(null);
+        txtDataFinal.setText(null);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> boxCategoria;
+    private javax.swing.JComboBox<String> boxTipo;
+    private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnVoltar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblCampoID;
+    private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblDataFinal;
+    private javax.swing.JLabel lblDataInicial;
+    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblID;
+    private javax.swing.JLabel lblTipo;
+    private javax.swing.JLabel lblValor;
+    private javax.swing.JTable tabela;
+    private javax.swing.JFormattedTextField txtData;
+    private javax.swing.JFormattedTextField txtDataFinal;
+    private javax.swing.JFormattedTextField txtDataInicial;
+    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JFormattedTextField txtValor;
+    // End of variables declaration//GEN-END:variables
+
+    private void listarTudo() {
+        try {
+            MovimentacaoDao movDao = new MovimentacaoDao();
+            List<Movimentacao> movimentacoes = movDao.listarTudo(usuario);
+
+            listaTabela(movimentacoes);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(GerenciarFinancas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    private void limpaTabela(){
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        model.setRowCount(0);
+    }
+
+    private void listaTabela(List<Movimentacao> lista) {
+        limpaTabela();
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();        
+
+        for (int i = 0; i < lista.size(); i++) {
+            Movimentacao mov = lista.get(i);
+
+            model.addRow(new Object[]{
+                mov.getCod(),
+                dataToString(mov.getData()),
+                mov.getDescricao(),
+                mov.getTipo(),
+                mov.getCategoria(),
+                String.format("%,.2f", mov.getValor())
+            });
+        }
+
+    }
+    
     private void buscarEListar(){
         Date inicio;
         Date fim;
@@ -421,69 +504,6 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         }
         
         listaTabela(lista);
-    }
-    
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        buscarEListar();
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxCategoria;
-    private javax.swing.JComboBox<String> boxTipo;
-    private javax.swing.JButton btnAtualizar;
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnVoltar;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblCampoID;
-    private javax.swing.JLabel lblCategoria;
-    private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblDataFinal;
-    private javax.swing.JLabel lblDataInicial;
-    private javax.swing.JLabel lblDescricao;
-    private javax.swing.JLabel lblID;
-    private javax.swing.JLabel lblTipo;
-    private javax.swing.JLabel lblValor;
-    private javax.swing.JTable tabela;
-    private javax.swing.JFormattedTextField txtData;
-    private javax.swing.JFormattedTextField txtDataFinal;
-    private javax.swing.JFormattedTextField txtDataInicial;
-    private javax.swing.JTextField txtDescricao;
-    private javax.swing.JFormattedTextField txtValor;
-    // End of variables declaration//GEN-END:variables
-
-    private void listarTudo() {
-        try {
-            MovimentacaoDao movDao = new MovimentacaoDao();
-            List<Movimentacao> movimentacoes = movDao.listarTudo(usuario);
-
-            listaTabela(movimentacoes);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(GerenciarFinancas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    private void listaTabela(List<Movimentacao> lista) {
-        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-
-        //Zera tabela para atualizar
-        model.setRowCount(0);
-
-        for (int i = 0; i < lista.size(); i++) {
-            Movimentacao mov = lista.get(i);
-
-            model.addRow(new Object[]{
-                mov.getCod(),
-                dataToString(mov.getData()),
-                mov.getDescricao(),
-                mov.getTipo(),
-                mov.getCategoria(),
-                String.format("%,.2f", mov.getValor())
-            });
-        }
-
     }
 
     private Movimentacao getMovimentacao(int rowIndex) {
