@@ -32,7 +32,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         this.usuario = usuario;
         initComponents();
 
-        listarTudo();
+        buscarEListar();
         setIcon();
         setVisible(true);
 
@@ -319,7 +319,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(null, "Movimentação excluida.", "Concluido", JOptionPane.INFORMATION_MESSAGE);
 
-                listarTudo();
+                buscarEListar();
                 limpaCampoMovimentacao();
 
             } catch (SQLException | ClassNotFoundException ex) {
@@ -376,11 +376,12 @@ public class GerenciarFinancas extends javax.swing.JFrame {
             Logger.getLogger(CadastrarMovimentacao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        listarTudo();
+        buscarEListar();
+        
 
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    private void buscarEListar(){
         Date inicio;
         Date fim;
         try {
@@ -420,7 +421,10 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         }
         
         listaTabela(lista);
-
+    }
+    
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscarEListar();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
