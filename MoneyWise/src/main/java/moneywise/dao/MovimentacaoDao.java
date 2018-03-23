@@ -1,6 +1,7 @@
 package moneywise.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -105,6 +106,118 @@ public class MovimentacaoDao {
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, usuario.getEmail());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Movimentacao mov = new Movimentacao(
+                        rs.getInt("cod"),
+                        rs.getString("usuario"),
+                        rs.getString("descricao"),
+                        rs.getFloat("valor"),
+                        rs.getDate("data"),
+                        rs.getString("tipo"),
+                        rs.getString("categoria")
+                );
+                
+                movs.add(mov);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+
+        return movs;
+    }
+    
+    public List<Movimentacao> listarDataInicio(Usuario usuario, Date inicio) {
+
+        List<Movimentacao> movs = new ArrayList<>();
+
+        String sql = "SELECT * FROM Movimentacao WHERE usuario = ? and data >= ? ORDER BY data DESC";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, usuario.getEmail());
+            stmt.setDate(2, inicio);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Movimentacao mov = new Movimentacao(
+                        rs.getInt("cod"),
+                        rs.getString("usuario"),
+                        rs.getString("descricao"),
+                        rs.getFloat("valor"),
+                        rs.getDate("data"),
+                        rs.getString("tipo"),
+                        rs.getString("categoria")
+                );
+                
+                movs.add(mov);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+
+        return movs;
+    }
+    
+    public List<Movimentacao> listarDataFim(Usuario usuario, Date fim) {
+
+        List<Movimentacao> movs = new ArrayList<>();
+
+        String sql = "SELECT * FROM Movimentacao WHERE usuario = ? and data <= ? ORDER BY data DESC";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, usuario.getEmail());
+            stmt.setDate(2, fim);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Movimentacao mov = new Movimentacao(
+                        rs.getInt("cod"),
+                        rs.getString("usuario"),
+                        rs.getString("descricao"),
+                        rs.getFloat("valor"),
+                        rs.getDate("data"),
+                        rs.getString("tipo"),
+                        rs.getString("categoria")
+                );
+                
+                movs.add(mov);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+
+        return movs;
+    }
+    
+    public List<Movimentacao> listarDataInicioFim(Usuario usuario, Date inicio, Date fim) {
+
+        List<Movimentacao> movs = new ArrayList<>();
+
+        String sql = "SELECT * FROM Movimentacao WHERE usuario = ? and data >= ? and data <= ? ORDER BY data DESC";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, usuario.getEmail());
+            stmt.setDate(2, inicio);
+            stmt.setDate(3, fim);
 
             ResultSet rs = stmt.executeQuery();
 
