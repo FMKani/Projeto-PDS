@@ -83,9 +83,26 @@ public class GerenciarFinancas extends javax.swing.JFrame {
 
         lblDataInicial.setText("Data Inicial");
 
+        try {
+            txtDataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         lblDataFinal.setText("Data Final");
 
+        try {
+            txtDataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -319,12 +336,12 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         if (dialogResult == JOptionPane.NO_OPTION) {
             return;
         }
-        
+
         int id = Integer.parseInt(lblID.getText());
         String descricao = txtDescricao.getText();
         Date data;
         try {
-            data = getData();
+            data = getData(txtData);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Data inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
@@ -362,6 +379,49 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         listarTudo();
 
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        Date inicio;
+        Date fim;
+        try {
+            inicio = getData(txtDataInicial);
+            fim = getData(txtDataFinal);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Data inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        List<Movimentacao> lista = null;
+        try {
+            MovimentacaoDao movDao = new MovimentacaoDao();
+
+            if (inicio == null) {
+                //INICIO vazio e FIM vazio
+                if (fim == null) {
+                    lista = movDao.listarTudo(usuario);
+                            
+                //INICIO vazio e FIM nao vazio
+                } else {
+                    lista = movDao.listarDataFim(usuario, fim);
+
+                }
+            } else {
+                //INICIO nao vazio e FIM vazio
+                if (fim == null) {
+                    lista = movDao.listarDataInicio(usuario, inicio);
+
+                //INICIO nao vazio e FIM nao vazio
+                } else {
+                    lista = movDao.listarDataInicioFim(usuario, inicio, fim);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o Banco.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        listaTabela(lista);
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxCategoria;
@@ -416,7 +476,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                 mov.getDescricao(),
                 mov.getTipo(),
                 mov.getCategoria(),
-                String.format ("%,.2f", mov.getValor())
+                String.format("%,.2f", mov.getValor())
             });
         }
 
@@ -438,7 +498,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     }
 
     private void limpaCampoMovimentacao() {
-        
+
         lblID.setText("-");
         txtData.setText("");
         txtDescricao.setText("");
@@ -448,7 +508,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     }
 
     private void setCampoMovimentacao(Movimentacao mov) {
-      
+
         lblID.setText(Integer.toString(mov.getCod()));
         txtData.setText(dataToString(mov.getData()));
         txtDescricao.setText(mov.getDescricao());
@@ -462,8 +522,8 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         return valor;
     }
 
-    private Date getData() throws Exception {
-        String dataOriginal = txtData.getText();
+    private Date getData(JFormattedTextField campo) throws Exception {
+        String dataOriginal = campo.getText();
         String campoVazio = "  /  /    ";
         Date dataLimite = Date.valueOf("1900-01-01");
 
@@ -538,7 +598,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         home.setLocation(this.getX(), this.getY());
         this.dispose();
     }
-    
+
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/mw.png")));
     }
