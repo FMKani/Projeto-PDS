@@ -244,6 +244,39 @@ public class MovimentacaoDao {
         return movs;
     }
     
+    public List<Movimentacao> listarSQL(String sql) {
+
+        List<Movimentacao> movs = new ArrayList<>();
+
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Movimentacao mov = new Movimentacao(
+                        rs.getInt("cod"),
+                        rs.getString("usuario"),
+                        rs.getString("descricao"),
+                        rs.getFloat("valor"),
+                        rs.getDate("data"),
+                        rs.getString("tipo"),
+                        rs.getString("categoria")
+                );
+                
+                movs.add(mov);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+
+        return movs;
+    }
+    
     public boolean atualizar(int cod, Movimentacao mov) {
 
         String sql = "UPDATE Movimentacao SET cod = ?, usuario = ?, descricao = ?, "

@@ -79,6 +79,17 @@ public class GerenciarFinancas extends javax.swing.JFrame {
         boxTipo = new javax.swing.JComboBox<>();
         boxCategoria = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        lblFiltroTipo = new javax.swing.JLabel();
+        boxEntrada = new javax.swing.JCheckBox();
+        boxSaida = new javax.swing.JCheckBox();
+        boxAlimentacao = new javax.swing.JCheckBox();
+        lblFiltroCategoria = new javax.swing.JLabel();
+        boxAluguel = new javax.swing.JCheckBox();
+        boxAgua = new javax.swing.JCheckBox();
+        boxLuz = new javax.swing.JCheckBox();
+        boxSaude = new javax.swing.JCheckBox();
+        boxPessoal = new javax.swing.JCheckBox();
+        boxOutro = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -186,6 +197,37 @@ public class GerenciarFinancas extends javax.swing.JFrame {
             }
         });
 
+        lblFiltroTipo.setText("Tipo:");
+
+        boxEntrada.setSelected(true);
+        boxEntrada.setText("Entrada");
+
+        boxSaida.setSelected(true);
+        boxSaida.setText("Saída");
+
+        boxAlimentacao.setSelected(true);
+        boxAlimentacao.setText("Alimentação");
+
+        lblFiltroCategoria.setText("Categoria:");
+
+        boxAluguel.setSelected(true);
+        boxAluguel.setText("Aluguel");
+
+        boxAgua.setSelected(true);
+        boxAgua.setText("Água");
+
+        boxLuz.setSelected(true);
+        boxLuz.setText("Luz");
+
+        boxSaude.setSelected(true);
+        boxSaude.setText("Saúde");
+
+        boxPessoal.setSelected(true);
+        boxPessoal.setText("Pessoal");
+
+        boxOutro.setSelected(true);
+        boxOutro.setText("Outro");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -194,11 +236,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDescricao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescricao))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnVoltar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -206,30 +244,17 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblDataInicial)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblDataFinal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCampoID)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblID)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(lblData)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtData))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(lblDescricao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDescricao))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCampoID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblID)
+                        .addGap(41, 41, 41)
+                        .addComponent(lblData)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtData))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTipo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -241,7 +266,42 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lblValor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtValor)))
+                        .addComponent(txtValor))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(boxAlimentacao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boxAluguel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boxAgua)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boxLuz)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boxSaude)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(boxPessoal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boxOutro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblDataInicial)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblDataFinal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFiltroCategoria)
+                            .addComponent(lblFiltroTipo)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(boxEntrada)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(boxSaida)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -253,11 +313,28 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                     .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDataFinal)
                     .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(lblFiltroTipo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(boxEntrada)
+                    .addComponent(boxSaida))
+                .addGap(18, 18, 18)
+                .addComponent(lblFiltroCategoria)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(boxAlimentacao)
+                    .addComponent(boxAluguel)
+                    .addComponent(boxAgua)
+                    .addComponent(boxLuz)
+                    .addComponent(boxSaude)
+                    .addComponent(boxPessoal)
+                    .addComponent(boxOutro)
+                    .addComponent(btnBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -277,7 +354,7 @@ public class GerenciarFinancas extends javax.swing.JFrame {
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(boxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(boxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltar)
                     .addComponent(btnExcluir)
@@ -402,7 +479,16 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox boxAgua;
+    private javax.swing.JCheckBox boxAlimentacao;
+    private javax.swing.JCheckBox boxAluguel;
     private javax.swing.JComboBox<String> boxCategoria;
+    private javax.swing.JCheckBox boxEntrada;
+    private javax.swing.JCheckBox boxLuz;
+    private javax.swing.JCheckBox boxOutro;
+    private javax.swing.JCheckBox boxPessoal;
+    private javax.swing.JCheckBox boxSaida;
+    private javax.swing.JCheckBox boxSaude;
     private javax.swing.JComboBox<String> boxTipo;
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnBuscar;
@@ -417,6 +503,8 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     private javax.swing.JLabel lblDataFinal;
     private javax.swing.JLabel lblDataInicial;
     private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblFiltroCategoria;
+    private javax.swing.JLabel lblFiltroTipo;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JLabel lblValor;
@@ -465,6 +553,10 @@ public class GerenciarFinancas extends javax.swing.JFrame {
     }
     
     private void buscarEListar(){
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("SELECT * FROM Movimentacao WHERE Usuario LIKE '" + usuario.getEmail() + "'");
+                
+        //Datas
         Date inicio;
         Date fim;
         try {
@@ -474,31 +566,51 @@ public class GerenciarFinancas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        if (inicio != null){
+            sqlBuilder.append(" and data>= '" + inicio.toString() + "'");
+        }
+        if (fim != null){
+            sqlBuilder.append(" and data<= '" + fim.toString() + "'");
+        }
+        
+        //Tipos
+        if (!boxEntrada.isSelected()){
+            sqlBuilder.append(" and Tipo NOT LIKE 'Entrada'");
+        }
+        if (!boxSaida.isSelected()){
+            sqlBuilder.append(" and Tipo NOT LIKE 'Saída'");
+        }
+        
+        //Categorias
+        if (!boxAlimentacao.isSelected()){
+            sqlBuilder.append(" and Categoria NOT LIKE 'Alimentação'");
+        }
+        if (!boxAluguel.isSelected()){
+            sqlBuilder.append(" and Categoria NOT LIKE 'Aluguel'");
+        }
+        if (!boxAgua.isSelected()){
+            sqlBuilder.append(" and Categoria NOT LIKE 'Água'");
+        }
+        if (!boxLuz.isSelected()){
+            sqlBuilder.append(" and Categoria NOT LIKE 'Luz'");
+        }
+        if (!boxSaude.isSelected()){
+            sqlBuilder.append(" and Categoria NOT LIKE 'Saúde'");
+        }
+        if (!boxPessoal.isSelected()){
+            sqlBuilder.append(" and Categoria NOT LIKE 'Pessoal'");
+        }
+        if (!boxOutro.isSelected()){
+            sqlBuilder.append(" and Categoria NOT LIKE 'Outro'");
+        }
+                
+        //Efetua busca
         List<Movimentacao> lista = null;
         try {
             MovimentacaoDao movDao = new MovimentacaoDao();
-
-            if (inicio == null) {
-                //INICIO vazio e FIM vazio
-                if (fim == null) {
-                    lista = movDao.listarTudo(usuario);
-                            
-                //INICIO vazio e FIM nao vazio
-                } else {
-                    lista = movDao.listarDataFim(usuario, fim);
-
-                }
-            } else {
-                //INICIO nao vazio e FIM vazio
-                if (fim == null) {
-                    lista = movDao.listarDataInicio(usuario, inicio);
-
-                //INICIO nao vazio e FIM nao vazio
-                } else {
-                    lista = movDao.listarDataInicioFim(usuario, inicio, fim);
-                }
-            }
+            System.out.println(sqlBuilder.toString());
+            lista = movDao.listarSQL(sqlBuilder.toString());
+            
         } catch (SQLException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Erro na conexão com o Banco.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
